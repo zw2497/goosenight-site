@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GooseNight - 一只会催你睡觉的鹅</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+            background: #0a0a1a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px; height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: var(--opacity); }
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .goose {
+            font-size: 8rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 40px rgba(255, 214, 0, 0.3));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .moon {
+            position: fixed;
+            top: 8vh;
+            right: 10vw;
+            width: 80px; height: 80px;
+            background: radial-gradient(circle at 30% 30%, #ffe680, #ffd000);
+            border-radius: 50%;
+            box-shadow: 0 0 60px rgba(255, 214, 0, 0.4), 0 0 120px rgba(255, 214, 0, 0.15);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffd000, #ff9500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .features {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 3rem;
+            max-width: 640px;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.2rem 1.5rem;
+            min-width: 180px;
+            flex: 1;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 100px;
+            background: linear-gradient(135deg, #ffd000, #ff9500);
+            color: #000;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.02em;
+        }
+
+        .privacy {
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .privacy a {
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: underline;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 2rem;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 600px) {
+            .goose { font-size: 5rem; }
+            h1 { font-size: 2rem; }
+            .tagline { font-size: 1rem; }
+            .features { flex-direction: column; padding: 0 1rem; }
+            .moon { width: 50px; height: 50px; top: 5vh; right: 5vw; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="moon"></div>
+
+<div class="container">
+    <div class="goose">🪿</div>
+    <h1>GooseNight</h1>
+    <p class="tagline">一只会催你睡觉的鹅<br>不睡？那就答题。</p>
+
+    <div class="features">
+        <div class="feature">
+            <div class="feature-icon">😴</div>
+            <div class="feature-text">到点弹出答题<br>答错直接关 APP</div>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🔥</div>
+            <div class="feature-text">越熬越凶<br>5 级骚扰升级</div>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🏝️</div>
+            <div class="feature-text">灵动岛倒计时<br>实时提醒剩余睡眠</div>
+        </div>
+    </div>
+
+    <div class="badge">即将上线 App Store</div>
+
+    <div class="privacy">
+        <a href="privacy.html">隐私政策</a> &middot; <a href="support.html">支持</a> &middot; goosenight.app@gmail.com
+    </div>
+</div>
+
+<footer>&copy; 2025 GooseNight</footer>
+
+<script>
+    const stars = document.getElementById('stars');
+    for (let i = 0; i < 80; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.setProperty('--duration', (2 + Math.random() * 4) + 's');
+        star.style.setProperty('--opacity', (0.3 + Math.random() * 0.7));
+        star.style.animationDelay = Math.random() * 5 + 's';
+        stars.appendChild(star);
+    }
+</script>
+
+</body>
+</html>
